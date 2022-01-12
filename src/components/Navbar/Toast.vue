@@ -1,14 +1,14 @@
 <template>
   <v-snackbar
     shaped
-    v-model="this.toastInfo.isOpen"
+    v-model="toastInfo.isOpen"
     timeout="4000"
     color="#8bc34a"
     top
     right
   >
-    {{ this.toastInfo.message }}
-    {{ this.toastInfo.type }}
+    {{ toastInfo.message }}
+    {{ toastInfo.type }}
     <template v-slot:action="{ attrs }">
       <v-btn text v-bind="attrs" @click="closeAlert()"> CLose </v-btn>
     </template>

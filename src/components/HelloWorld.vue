@@ -7,13 +7,13 @@
       hide-details="auto"
       v-model="email"
     ></v-text-field>
-    <v-btn @click="register">Sign In</v-btn>
+    <v-btn @click="registerMethod">Sign In</v-btn>
   </v-container>
 </template>
 
 <script>
 import axios from "axios";
-import { mapActions } from "vuex";
+import { mapActions, mapMutations } from "vuex";
 
 export default {
   name: "HelloWorld",
@@ -23,6 +23,7 @@ export default {
   }),
   methods: {
     ...mapActions(["registerUser"]),
+    ...mapMutations(["errorHandler"]),
     register: function () {
       axios
         .post("http://localhost:5000/api/auth/login", {
@@ -38,10 +39,11 @@ export default {
         })
         .catch((err) => console.error(err));
     },
-  },
-
-  updated() {
-    console.log(this.email);
+    registerMethod: function () {
+      this.registerUser({ email: this.email }).then(() =>
+        this.$router.push("/about")
+      );
+    },
   },
 };
 </script>

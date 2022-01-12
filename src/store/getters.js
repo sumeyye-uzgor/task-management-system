@@ -1,4 +1,5 @@
 export default {
   userInfo: (state) => state.userInfo,
-  token: this.userInfo.token,
+  token: ({ userInfo }) => userInfo.jwtToken,
+  toastInfo: (state) => state.toastInfo,
 };
