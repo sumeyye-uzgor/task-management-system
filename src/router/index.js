@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
+import NotFound from "../views/NotFound.vue";
 import store from "../store/index";
 
 Vue.use(VueRouter);
@@ -18,7 +19,7 @@ const routes = [
   },
   {
     path: "/",
-    name: "Home",
+    name: "HomePage",
     exact: true,
     component: Home,
     meta: {
@@ -30,6 +31,11 @@ const routes = [
     path: "/login",
     name: "Login",
     component: Login,
+  },
+  {
+    path: "/:catchAll(.*)",
+    name: "NotFound",
+    component: NotFound,
   },
 ];
 
