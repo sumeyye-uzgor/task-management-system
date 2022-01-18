@@ -23,4 +23,13 @@ export default {
       isOpen: true,
     };
   },
+  logOut: (state) => {
+    state.userInfo = {
+      department: 0,
+      id: 0,
+      name: "",
+      email: "",
+      jwtToken: "",
+    };
+  },
 };
