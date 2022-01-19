@@ -5,7 +5,6 @@
     <v-main>
       <router-view />
     </v-main>
-    <v-btn @click="toRouter">Login</v-btn>
   </v-app>
 </template>
 
@@ -17,10 +16,6 @@ export default {
   components: {
     Toast,
   },
-  methods: {
-    toRouter() {
-      this.$router.push("/login");
-    },
-  },
+  methods: {},
 };
 </script>
