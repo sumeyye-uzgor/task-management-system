@@ -7,6 +7,8 @@ export default {
         value
       );
       if (data && data.payload) {
+        axios.defaults.headers.common["Authorization"] =
+          "Bearer " + data.payload.jwtToken;
         commit("setUserInfo", { ...data.payload });
       } else {
         throw new Error("You can not log in!");
