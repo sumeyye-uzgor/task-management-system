@@ -1,19 +1,28 @@
 <template>
   <v-app>
-    <v-main>
-      <toast />
+    <empty v-if="getLayout === 'empty'">
       <router-view />
-    </v-main>
+    </empty>
+    <default v-else>
+      <router-view />
+    </default>
   </v-app>
 </template>
 
 <script>
-import Toast from "./components/Navbar/Toast.vue";
+import Default from "./layouts/default.vue";
+import Empty from "./layouts/empty.vue";
 
 export default {
   name: "App",
   components: {
-    Toast,
+    Empty,
+    Default,
+  },
+  computed: {
+    getLayout() {
+      return this.$route.name === "Login" ? "empty" : "default";
+    },
   },
 };
 </script>
