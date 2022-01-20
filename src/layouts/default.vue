@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex flex-row">
-    <v-navigation-drawer expand-on-hover permanent>
+    <v-navigation-drawer expand-on-hover permanent height="100vh">
       <v-list>
         <v-list-item class="px-2">
           <v-list-item-avatar>
@@ -43,7 +43,7 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-main class="pa-4">
+    <v-main style="position: relative">
       <toast />
       <slot />
     </v-main>

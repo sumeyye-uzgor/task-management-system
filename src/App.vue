@@ -26,3 +26,17 @@ export default {
   },
 };
 </script>
+<style lang="scss">
+html {
+  overflow: hidden;
+}
+.scrollContainer {
+  overflow-y: auto;
+  height: 100vh;
+  position: absolute;
+  top: 5;
+  left: 10px;
+  width: 100%;
+  padding: 20px;
+}
+</style>
