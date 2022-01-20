@@ -43,7 +43,7 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-main>
+    <v-main class="pa-4">
       <toast />
       <slot />
     </v-main>
