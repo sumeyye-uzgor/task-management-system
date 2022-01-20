@@ -1,8 +1,7 @@
 <template>
   <v-app>
-    <toast />
-
     <v-main>
+      <toast />
       <router-view />
     </v-main>
   </v-app>
@@ -16,6 +15,5 @@ export default {
   components: {
     Toast,
   },
-  methods: {},
 };
 </script>

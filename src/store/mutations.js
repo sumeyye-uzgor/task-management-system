@@ -3,21 +3,22 @@ export default {
     state.userInfo = value;
   },
   errorHandler: (state, value) => {
-    state.toastMessage = {
+    state.toastInfo = {
       type: "error",
       message: value,
       isOpen: true,
     };
   },
+
   closeToast: (state) => {
-    state.toastMessage = {
+    state.toastInfo = {
       type: "",
       message: "",
       isOpen: false,
     };
   },
   successHandler: (state, value) => {
-    state.toastMessage = {
+    state.toastInfo = {
       type: "error",
       message: value,
       isOpen: true,

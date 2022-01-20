@@ -41,18 +41,11 @@ export default {
     ...mapMutations(["logOut"]),
     logMeOut() {
       this.logOut();
-
       this.$router.push({ name: "Login" });
     },
   },
   computed: {
     ...mapGetters(["userInfo"]),
-  },
-  created() {
-    console.log(this.userInfo);
-    // if (this.userInfo.jwtToken?.length < 1) {
-    //   this.$router.push("/");
-    // }
   },
 };
 </script>

@@ -3,23 +3,40 @@
     shaped
     v-model="toastInfo.isOpen"
     timeout="4000"
-    color="#8bc34a"
+    :color="getColor"
     top
     right
   >
     {{ toastInfo.message }}
-    {{ toastInfo.type }}
     <template v-slot:action="{ attrs }">
-      <v-btn text v-bind="attrs" @click="closeAlert()"> CLose </v-btn>
+      <v-btn text v-bind="attrs" @click="closeToast()"> X </v-btn>
     </template>
   </v-snackbar>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 export default {
   computed: {
     ...mapGetters(["toastInfo"]),
+    getColor() {
+      let color = "";
+      switch (this.toastInfo.type) {
+        case "success":
+          color = "green";
+          break;
+        case "error":
+          color = "red";
+          break;
+        default:
+          color = "blue";
+          break;
+      }
+      return color;
+    },
+  },
+  methods: {
+    ...mapMutations(["closeToast"]),
   },
 };
 </script>
