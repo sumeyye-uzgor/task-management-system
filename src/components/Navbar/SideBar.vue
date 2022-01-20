@@ -46,6 +46,14 @@
           <v-icon> {{ mdiAlphaMBox }} </v-icon>
         </v-list-item-title>
       </v-list-item>
+      <v-list-item>
+        <v-list-item-icon>
+          <v-icon>{{ mdiAccountCircle }}</v-icon>
+        </v-list-item-icon>
+        <v-list-item-title>
+          {{ userInfo.name }}
+        </v-list-item-title>
+      </v-list-item>
     </v-list>
     <v-divider></v-divider>
 
@@ -107,8 +115,9 @@ import {
   mdiReloadAlert,
   mdiExitToApp,
   mdiClockCheck,
+  mdiAccountCircle,
 } from "@mdi/js";
-import { mapMutations } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 export default {
   name: "SideBar",
   methods: {
@@ -117,6 +126,9 @@ export default {
       this.logOut();
       this.$router.push({ name: "Login" });
     },
+  },
+  computed: {
+    ...mapGetters(["userInfo"]),
   },
   data() {
     return {
@@ -136,6 +148,7 @@ export default {
       mdiReloadAlert,
       mdiExitToApp,
       mdiClockCheck,
+      mdiAccountCircle,
     };
   },
 };
