@@ -1,17 +1,19 @@
 <template>
-  <div class="scrollContainer">
+  <div class="scrollContainer indigo lighten-5">
     <div v-if="tasks.length > 1">
-      <div v-for="task in tasks" :key="task.id">
-        {{ task.title }}
-      </div>
+      <task-card v-for="task in tasks" :key="task.id" :task="task" />
     </div>
   </div>
 </template>
 <script>
 import { mapGetters, mapMutations } from "vuex";
 import { mdiClipboardEditOutline } from "@mdi/js";
+import TaskCard from "../components/TaskCard.vue";
 import axios from "axios";
 export default {
+  components: {
+    TaskCard,
+  },
   created() {
     this.fetchData();
   },

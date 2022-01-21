@@ -34,8 +34,8 @@ html {
   overflow-y: auto;
   height: 100vh;
   position: absolute;
-  top: 5;
-  left: 10px;
+  top: 0;
+  left: 0;
   width: 100%;
   padding: 20px;
 }
