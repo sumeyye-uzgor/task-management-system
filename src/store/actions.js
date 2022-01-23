@@ -1,4 +1,6 @@
 import axios from "axios";
+
+let defaultAxios = {};
 export default {
   registerUser: async ({ commit }, value) => {
     try {
@@ -7,8 +9,11 @@ export default {
         value
       );
       if (data && data.payload) {
-        axios.defaults.headers.common["Authorization"] =
-          "Bearer " + data.payload.jwtToken;
+        defaultAxios = axios.create({
+          baseURL: "http://localhost:5000/api/",
+          timeout: 1000,
+          headers: { Authorization: "Bearer " + data.payload.jwtToken },
+        });
         commit("setUserInfo", { ...data.payload });
       } else {
         throw new Error("You can not log in!");
@@ -21,3 +26,4 @@ export default {
     }
   },
 };
+export { defaultAxios };

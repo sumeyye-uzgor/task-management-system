@@ -7,9 +7,9 @@
 </template>
 <script>
 import { mapGetters, mapMutations } from "vuex";
+import { defaultAxios } from "../store/actions";
 import { mdiClipboardEditOutline } from "@mdi/js";
 import TaskCard from "../components/TaskCard.vue";
-import axios from "axios";
 export default {
   components: {
     TaskCard,
@@ -31,7 +31,7 @@ export default {
     },
     async fetchData() {
       try {
-        const { data } = await axios.get("http://localhost:5000/api/task");
+        const { data } = await defaultAxios.get("task");
         if (data && data.payload) {
           console.log(data.payload);
           this.tasks = data.payload;
