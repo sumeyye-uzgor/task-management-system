@@ -19,7 +19,7 @@ export default {
   },
   successHandler: (state, value) => {
     state.toastInfo = {
-      type: "error",
+      type: "success",
       message: value,
       isOpen: true,
     };

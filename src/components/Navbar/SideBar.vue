@@ -131,28 +131,15 @@ import {
   mdiClockCheck,
   mdiAccountCircle,
 } from "@mdi/js";
-import { mapGetters, mapMutations } from "vuex";
-import { defaultAxios } from "../../store/actions";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 export default {
   name: "SideBar",
   methods: {
+    ...mapActions(["resetData"]),
     ...mapMutations(["logOut"]),
     logOutUser() {
       this.logOut();
       this.$router.push({ name: "Login" });
-    },
-    async resetData() {
-      try {
-        const { data } = await defaultAxios.get("task/reset-data");
-        if (data && data.payload) {
-          console.log(data.payload);
-          this.tasks = data.payload;
-        } else {
-          throw new Error("no data");
-        }
-      } catch (err) {
-        console.log(err);
-      }
     },
   },
   computed: {

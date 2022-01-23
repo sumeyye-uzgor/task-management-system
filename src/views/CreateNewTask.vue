@@ -36,7 +36,7 @@
             :items="departments"
             :reduce="(department) => department.name"
           />
-          <v-btn outlined class="indigo--text darken-3" @click="createNewTask"
+          <v-btn outlined class="indigo--text darken-3" @click="createTask"
             >Create New Task</v-btn
           >
         </v-form>
@@ -46,8 +46,7 @@
 </template>
 <script>
 import { mdiClipboardEditOutline } from "@mdi/js";
-import { defaultAxios } from "../store/actions";
-import { mapMutations } from "vuex";
+import { mapActions } from "vuex";
 export default {
   components: {},
   data() {
@@ -65,27 +64,21 @@ export default {
     };
   },
   methods: {
-    ...mapMutations(["errorHandler"]),
-    async createNewTask() {
+    ...mapActions(["createNewTask"]),
+    async createTask() {
       this.$refs.form.validate();
       if (this.valid) {
-        try {
-          const { data } = await defaultAxios.post("task", {
-            title: this.title,
-            description: this.description,
-            assignedDepartment: this.department,
-          });
-          if (data.payload) {
-            this.$refs.form.reset();
-            this.department = 0;
-            this.description = "";
-            this.title = "";
-            this.$router.push({ name: "Home" });
-          } else {
-            throw new Error("There is a problem, try again later...");
-          }
-        } catch (err) {
-          this.errorHandler(err.message);
+        const isCreated = await this.createNewTask({
+          title: this.title,
+          description: this.description,
+          assignedDepartment: this.department,
+        });
+        if (isCreated) {
+          this.$refs.form.reset();
+          this.department = 0;
+          this.description = "";
+          this.title = "";
+          this.$router.push({ name: "Home" });
         }
       }
     },

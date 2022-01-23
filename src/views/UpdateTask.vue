@@ -25,7 +25,7 @@
             v-model="description"
             required
           />
-          <v-btn outlined class="indigo--text darken-3 mt-5" @click="updateTask"
+          <v-btn outlined class="indigo--text darken-3 mt-5" @click="update"
             >Update Task</v-btn
           >
         </v-form>
@@ -35,8 +35,7 @@
 </template>
 <script>
 import { mdiClipboardEditOutline } from "@mdi/js";
-import { defaultAxios } from "../store/actions";
-import { mapMutations } from "vuex";
+import { mapActions } from "vuex";
 export default {
   components: {},
   created() {
@@ -54,25 +53,20 @@ export default {
     };
   },
   methods: {
-    ...mapMutations(["errorHandler"]),
-    async updateTask() {
+    ...mapActions(["updateTask"]),
+    async update() {
       this.$refs.form.validate();
       if (this.valid) {
-        try {
-          const { data } = await defaultAxios.put(`task/${this.id}`, {
-            title: this.title,
-            description: this.description,
-          });
-          if (data.payload) {
-            this.$refs.form.reset();
-            this.description = "";
-            this.title = "";
-            this.$router.push({ name: "Home" });
-          } else {
-            throw new Error("There is a problem, try again later...");
-          }
-        } catch (err) {
-          this.errorHandler(err.message);
+        const isUpdated = await this.updateTask({
+          id: this.id,
+          title: this.title,
+          description: this.description,
+        });
+        if (isUpdated) {
+          this.$refs.form.reset();
+          this.description = "";
+          this.title = "";
+          this.$router.push({ name: "Home" });
         }
       }
     },
