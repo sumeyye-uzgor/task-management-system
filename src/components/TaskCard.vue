@@ -47,7 +47,10 @@ import { mapGetters } from "vuex";
 export default {
   methods: {
     updateTask() {
-      console.log("task will be updated");
+      this.$router.push({
+        name: "UpdateTask",
+        params: { id: this.task.id },
+      });
     },
     deleteTask() {
       console.log("task deleted");
