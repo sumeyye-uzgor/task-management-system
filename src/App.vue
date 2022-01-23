@@ -50,4 +50,7 @@ html {
   width: 100%;
   padding: 20px;
 }
+.cursor-pointer {
+  cursor: pointer;
+}
 </style>

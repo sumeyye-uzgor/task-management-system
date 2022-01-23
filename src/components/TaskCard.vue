@@ -1,6 +1,10 @@
 <template>
   <v-card shaped class="indigo--text darken-3" light elevation="2">
-    <v-card-title>{{ task.title }}</v-card-title>
+    <v-card-title
+      class="cursor-pointer"
+      @click="$router.push(`/task/${task.id}`)"
+      >{{ task.title }}</v-card-title
+    >
     <v-list>
       <v-list-item class="indigo--text darken-3">
         Assigned To: {{ getAssignedDepartment }}
