@@ -25,5 +25,20 @@ export default {
       }, 4000);
     }
   },
+  getAllTasks: async ({ commit }) => {
+    try {
+      const { data } = await defaultAxios.get("task");
+      if (data && data.payload) {
+        return data.payload;
+      } else {
+        throw new Error("There is a problem, try again later...");
+      }
+    } catch (err) {
+      commit("errorHandler", "Check your email and try again...");
+      setTimeout(() => {
+        commit("closeToast");
+      }, 4000);
+    }
+  },
 };
 export { defaultAxios };

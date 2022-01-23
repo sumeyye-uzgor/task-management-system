@@ -6,9 +6,9 @@
   </div>
 </template>
 <script>
-import { defaultAxios } from "../store/actions";
 import { mdiClipboardEditOutline } from "@mdi/js";
 import TaskCard from "../components/TaskCard.vue";
+import { mapActions } from "vuex";
 export default {
   components: {
     TaskCard,
@@ -23,18 +23,9 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["getAllTasks"]),
     async fetchData() {
-      try {
-        const { data } = await defaultAxios.get("task");
-        if (data && data.payload) {
-          console.log(data.payload);
-          this.tasks = data.payload;
-        } else {
-          throw new Error("no data");
-        }
-      } catch (err) {
-        console.log(err);
-      }
+      this.tasks = await this.getAllTasks();
     },
   },
 };
