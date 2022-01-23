@@ -11,7 +11,7 @@
             :rules="[(v) => v.length > 0 || 'Item is required']"
             outlined
             hide-details="auto"
-            v-model="title"
+            v-model="task.title"
             required
           />
           <v-textarea
@@ -22,7 +22,7 @@
             type="text"
             :rules="[(v) => v.length > 0 || 'Item is required']"
             hide-details="auto"
-            v-model="description"
+            v-model="task.description"
             required
           />
           <v-btn outlined class="indigo--text darken-3 mt-5" @click="updateTask"
@@ -40,29 +40,45 @@ import { mapMutations } from "vuex";
 export default {
   components: {},
   created() {
-    this.id = this.$route.params.id;
-    this.description = this.$route.query.description;
-    this.title = this.$route.query.title;
+    this.fetchTask();
   },
   data() {
     return {
       mdiClipboardEditOutline,
       valid: false,
-      title: "",
-      description: "",
-      id: "",
+      task: {
+        title: "",
+        description: "",
+      },
     };
   },
   methods: {
     ...mapMutations(["errorHandler"]),
+    async fetchTask() {
+      try {
+        const { data } = await defaultAxios.get(
+          `task/${this.$route.params.id}`
+        );
+        if (data.payload) {
+          this.task = data.payload;
+        } else {
+          throw new Error("There is a problem, try again later...");
+        }
+      } catch (err) {
+        this.errorHandler(err.message);
+      }
+    },
     async updateTask() {
       this.$refs.form.validate();
       if (this.valid) {
         try {
-          const { data } = await defaultAxios.put(`task/${this.id}`, {
-            title: this.title,
-            description: this.description,
-          });
+          const { data } = await defaultAxios.put(
+            `task/${this.$route.params.id}`,
+            {
+              title: this.task.title,
+              description: this.task.description,
+            }
+          );
           if (data.payload) {
             this.$refs.form.reset();
             this.description = "";

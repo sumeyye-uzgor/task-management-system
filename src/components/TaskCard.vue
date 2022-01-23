@@ -50,6 +50,7 @@ export default {
       this.$router.push({
         name: "UpdateTask",
         params: { id: this.task.id },
+        query: { title: this.task.title, description: this.task.description },
       });
     },
     deleteTask() {
