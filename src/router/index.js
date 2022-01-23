@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
 import MyTasks from "../views/MyTasks.vue";
+import PendingTasks from "../views/PendingTasks.vue";
 import NotFound from "../views/NotFound.vue";
 import store from "../store/index";
 
@@ -32,6 +33,15 @@ const routes = [
     name: "MyTasks",
     exact: true,
     component: MyTasks,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/pending-tasks",
+    name: "PendingTasks",
+    exact: true,
+    component: PendingTasks,
     meta: {
       requiresAuth: true,
     },
