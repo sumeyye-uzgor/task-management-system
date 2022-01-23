@@ -1,11 +1,5 @@
 <template>
-  <v-card
-    shaped
-    class="indigo--text darken-3"
-    light
-    style="border-color: #590329"
-    elevation="2"
-  >
+  <v-card shaped class="indigo--text darken-3" light elevation="2">
     <v-card-title>{{ task.title }}</v-card-title>
     <v-list>
       <v-list-item class="indigo--text darken-3">
@@ -16,16 +10,55 @@
       </v-list-item>
     </v-list>
     <v-card-actions>
-      <v-btn outlined class="indigo--text darken-3">Accept</v-btn>
-      <v-btn outlined class="indigo--text darken-3">Reject</v-btn>
-      <v-btn outlined class="indigo--text darken-3">Complete</v-btn>
-      <v-btn outlined class="indigo--text darken-3">Delete</v-btn>
+      <v-btn
+        outlined
+        class="indigo--text darken-3"
+        v-if="getIsMyTask"
+        @click="completeTask"
+        >Complete</v-btn
+      >
+      <v-btn
+        outlined
+        class="indigo--text darken-3"
+        v-if="getIsMyTask"
+        @click="rejectTask"
+        >Reject</v-btn
+      >
+      <v-btn
+        outlined
+        class="indigo--text darken-3"
+        v-if="getIsCreatedByMe"
+        @click="updateTask"
+        >Update</v-btn
+      >
+      <v-btn
+        outlined
+        class="indigo--text darken-3"
+        v-if="getIsCreatedByMe"
+        @click="deleteTask"
+        >Delete</v-btn
+      >
     </v-card-actions>
   </v-card>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
+  methods: {
+    updateTask() {
+      console.log("task will be updated");
+    },
+    deleteTask() {
+      console.log("task deleted");
+    },
+    rejectTask() {
+      console.log("task rejected");
+    },
+    completeTask() {
+      console.log("task completed");
+    },
+  },
   props: {
     task: {
       type: Object,
@@ -34,18 +67,32 @@ export default {
         id: "",
         assignedDepartment: 0,
         status: 0,
+        user: {
+          id: 0,
+          name: "",
+        },
       }),
     },
   },
   computed: {
+    ...mapGetters(["userInfo"]),
+    getIsMyTask() {
+      return this.userInfo.department === this.task.assignedDepartment;
+    },
+    getIsCreatedByMe() {
+      return this.userInfo.id === this.task.user.id;
+    },
     getAssignedDepartment() {
       let department = "";
       switch (this.task.assignedDepartment) {
         case 1:
-          department = "Human Resources";
+          department = "HR Department";
           break;
         case 2:
-          department = "Sales and Marketing";
+          department = "Sales Department";
+          break;
+        case 3:
+          department = "Marketing Department";
           break;
         default:
           break;
@@ -59,10 +106,10 @@ export default {
           status = "Pending";
           break;
         case 1:
-          status = "In Progress";
+          status = "Completed";
           break;
         case 2:
-          status = "Completed";
+          status = "Rejected";
           break;
         default:
           break;
