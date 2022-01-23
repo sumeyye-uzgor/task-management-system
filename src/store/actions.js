@@ -115,4 +115,49 @@ export default {
       }, 4000);
     }
   },
+  deleteTask: async ({ commit }, value) => {
+    try {
+      const { data } = await axios.delete(`task/${value}`);
+      if (data && data.payload) {
+        commit("successHandler", "Task deleted succesfully!");
+      } else {
+        throw new Error("There is a problem, try again later...");
+      }
+    } catch (err) {
+      commit("errorHandler", "There is a problem, try again later...");
+      setTimeout(() => {
+        commit("closeToast");
+      }, 4000);
+    }
+  },
+  completeTask: async ({ commit }, value) => {
+    try {
+      const { data } = await axios.get(`task/complete/${value}`);
+      if (data && data.payload) {
+        commit("successHandler", "Task completed succesfully!");
+      } else {
+        throw new Error("There is a problem, try again later...");
+      }
+    } catch (err) {
+      commit("errorHandler", "There is a problem, try again later...");
+      setTimeout(() => {
+        commit("closeToast");
+      }, 4000);
+    }
+  },
+  rejectTask: async ({ commit }, value) => {
+    try {
+      const { data } = await axios.get(`task/reject/${value}`);
+      if (data && data.payload) {
+        commit("successHandler", "Task completed succesfully!");
+      } else {
+        throw new Error("There is a problem, try again later...");
+      }
+    } catch (err) {
+      commit("errorHandler", "There is a problem, try again later...");
+      setTimeout(() => {
+        commit("closeToast");
+      }, 4000);
+    }
+  },
 };

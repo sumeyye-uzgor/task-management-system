@@ -14,20 +14,23 @@
         outlined
         class="indigo--text darken-3"
         v-if="getIsMyTask"
-        @click="completeTask"
+        :disabled="task.status !== 0"
+        @click="complete"
         >Complete</v-btn
       >
       <v-btn
         outlined
         class="indigo--text darken-3"
         v-if="getIsMyTask"
-        @click="rejectTask"
+        :disabled="task.status !== 0"
+        @click="reject"
         >Reject</v-btn
       >
       <v-btn
         outlined
         class="indigo--text darken-3"
         v-if="getIsCreatedByMe"
+        :disabled="task.status !== 0"
         @click="updateTask"
         >Update</v-btn
       >
@@ -35,7 +38,8 @@
         outlined
         class="indigo--text darken-3"
         v-if="getIsCreatedByMe"
-        @click="deleteTask"
+        :disabled="task.status !== 0"
+        @click="deleteThis"
         >Delete</v-btn
       >
     </v-card-actions>
@@ -43,24 +47,28 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   methods: {
+    ...mapActions(["rejectTask", "completeTask", "deleteTask"]),
+    async deleteThis() {
+      await this.deleteTask(this.task.id);
+      this.$emit("refresh");
+    },
+    async complete() {
+      await this.completeTask(this.task.id);
+      this.$emit("refresh");
+    },
+    async reject() {
+      await this.rejectTask(this.task.id);
+      this.$emit("refresh");
+    },
     updateTask() {
       this.$router.push({
         name: "UpdateTask",
         params: { id: this.task.id },
         query: { title: this.task.title, description: this.task.description },
       });
-    },
-    deleteTask() {
-      console.log("task deleted");
-    },
-    rejectTask() {
-      console.log("task rejected");
-    },
-    completeTask() {
-      console.log("task completed");
     },
   },
   props: {

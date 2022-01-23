@@ -1,7 +1,12 @@
 <template>
   <div class="scrollContainer indigo lighten-5">
     <div v-if="tasks.length > 0">
-      <task-card v-for="task in tasks" :key="task.id" :task="task" />
+      <task-card
+        v-for="task in tasks"
+        :key="task.id"
+        :task="task"
+        @refresh="fetchData"
+      />
     </div>
   </div>
 </template>
