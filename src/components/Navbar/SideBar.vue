@@ -92,7 +92,7 @@
           >Create New Task</v-list-item-title
         >
       </v-list-item>
-      <v-list-item @click="resetData">
+      <v-list-item @click="reset">
         <v-list-item-icon>
           <v-icon color="indigo darken-3">{{ mdiReloadAlert }}</v-icon>
         </v-list-item-icon>
@@ -137,6 +137,10 @@ export default {
   methods: {
     ...mapActions(["resetData"]),
     ...mapMutations(["logOut"]),
+    async reset() {
+      await this.resetData();
+      this.$router.go();
+    },
     logOutUser() {
       this.logOut();
       this.$router.push({ name: "Login" });
