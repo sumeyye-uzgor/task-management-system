@@ -92,7 +92,7 @@
           >Create New Task</v-list-item-title
         >
       </v-list-item>
-      <v-list-item link>
+      <v-list-item @click="resetData">
         <v-list-item-icon>
           <v-icon color="indigo darken-3">{{ mdiReloadAlert }}</v-icon>
         </v-list-item-icon>
@@ -132,6 +132,7 @@ import {
   mdiAccountCircle,
 } from "@mdi/js";
 import { mapGetters, mapMutations } from "vuex";
+import { defaultAxios } from "../../store/actions";
 export default {
   name: "SideBar",
   methods: {
@@ -139,6 +140,19 @@ export default {
     logOutUser() {
       this.logOut();
       this.$router.push({ name: "Login" });
+    },
+    async resetData() {
+      try {
+        const { data } = await defaultAxios.get("task/reset-data");
+        if (data && data.payload) {
+          console.log(data.payload);
+          this.tasks = data.payload;
+        } else {
+          throw new Error("no data");
+        }
+      } catch (err) {
+        console.log(err);
+      }
     },
   },
   computed: {
