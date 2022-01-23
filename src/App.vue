@@ -10,8 +10,10 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import Default from "./layouts/default.vue";
 import Empty from "./layouts/empty.vue";
+import axios from "axios";
 
 export default {
   name: "App",
@@ -20,9 +22,18 @@ export default {
     Default,
   },
   computed: {
+    ...mapGetters(["userInfo"]),
     getLayout() {
       return this.$route.name === "Login" ? "empty" : "default";
     },
+  },
+  created() {
+    if (this.userInfo.jwtToken.length > 0) {
+      axios.defaults.baseURL = "http://localhost:5000/api";
+      axios.defaults.headers.common = {
+        Authorization: `Bearer ${this.userInfo.jwtToken}`,
+      };
+    }
   },
 };
 </script>

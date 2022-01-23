@@ -34,8 +34,9 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { mdiEmail } from "@mdi/js";
+import axios from "axios";
 
 export default {
   name: "Login",
@@ -43,10 +44,17 @@ export default {
     email: "",
     mdiEmail,
   }),
+  computed: {
+    ...mapGetters(["userInfo"]),
+  },
   methods: {
     ...mapActions(["registerUser"]),
     register: async function () {
-      await this.registerUser({ email: this.email });
+      const token = await this.registerUser({ email: this.email });
+      axios.defaults.baseURL = "http://localhost:5000/api";
+      axios.defaults.headers.common = {
+        Authorization: `Bearer ${token}`,
+      };
       this.$router.push({ name: "Home" });
     },
   },

@@ -1,6 +1,5 @@
 import axios from "axios";
 
-let defaultAxios = {};
 export default {
   registerUser: async ({ commit }, value) => {
     try {
@@ -9,12 +8,8 @@ export default {
         value
       );
       if (data && data.payload) {
-        defaultAxios = axios.create({
-          baseURL: "http://localhost:5000/api/",
-          timeout: 1000,
-          headers: { Authorization: "Bearer " + data.payload.jwtToken },
-        });
         commit("setUserInfo", { ...data.payload });
+        return data.payload.jwtToken;
       } else {
         throw new Error("You can not log in!");
       }
@@ -27,18 +22,17 @@ export default {
   },
   getAllTasks: async ({ commit }) => {
     try {
-      const { data } = await defaultAxios.get("task");
+      const { data } = await axios.get("task");
       if (data && data.payload) {
         return data.payload;
       } else {
         throw new Error("There is a problem, try again later...");
       }
     } catch (err) {
-      commit("errorHandler", "Check your email and try again...");
+      commit("errorHandler", "There is a problem, try again later...");
       setTimeout(() => {
         commit("closeToast");
       }, 4000);
     }
   },
 };
-export { defaultAxios };
