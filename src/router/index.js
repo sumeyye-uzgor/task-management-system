@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
+import MyTasks from "../views/MyTasks.vue";
 import NotFound from "../views/NotFound.vue";
 import store from "../store/index";
 
@@ -26,7 +27,15 @@ const routes = [
       requiresAuth: true,
     },
   },
-
+  {
+    path: "/my-tasks",
+    name: "MyTasks",
+    exact: true,
+    component: MyTasks,
+    meta: {
+      requiresAuth: true,
+    },
+  },
   {
     path: "/login",
     name: "Login",

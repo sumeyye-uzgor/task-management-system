@@ -25,7 +25,7 @@ export default {
   methods: {
     async fetchData() {
       try {
-        const { data } = await defaultAxios.get("task");
+        const { data } = await defaultAxios.get("task/my-tasks");
         if (data && data.payload) {
           console.log(data.payload);
           this.tasks = data.payload;

@@ -66,7 +66,7 @@
           >All Tasks</v-list-item-title
         >
       </v-list-item>
-      <v-list-item link>
+      <v-list-item link :to="{ name: 'MyTasks' }">
         <v-list-item-icon>
           <v-icon color="indigo darken-3">{{
             mdiAccountDetailsOutline
