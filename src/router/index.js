@@ -4,6 +4,7 @@ import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
 import MyTasks from "../views/MyTasks.vue";
 import PendingTasks from "../views/PendingTasks.vue";
+import CreateNewTask from "../views/CreateNewTask.vue";
 import NotFound from "../views/NotFound.vue";
 import store from "../store/index";
 
@@ -42,6 +43,15 @@ const routes = [
     name: "PendingTasks",
     exact: true,
     component: PendingTasks,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/create-new-task",
+    name: "CreateNewTask",
+    exact: true,
+    component: CreateNewTask,
     meta: {
       requiresAuth: true,
     },

@@ -84,7 +84,7 @@
           >Pending Tasks</v-list-item-title
         >
       </v-list-item>
-      <v-list-item link>
+      <v-list-item link :to="{ name: 'CreateNewTask' }">
         <v-list-item-icon>
           <v-icon color="indigo darken-3">{{ mdiPlaylistPlus }}</v-icon>
         </v-list-item-icon>
